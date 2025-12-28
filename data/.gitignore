@@ -1,0 +1,12 @@
+# Ignore all ML-generated data
+models/*
+logs/*
+tensorboard-logs/*
+mlflow-artifacts/*
+
+# But keep the directory structure
+!.gitignore
+!models/.gitkeep
+!logs/.gitkeep
+!tensorboard-logs/.gitkeep
+!mlflow-artifacts/.gitkeep

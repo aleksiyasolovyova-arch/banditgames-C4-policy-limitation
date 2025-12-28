@@ -1,0 +1,70 @@
+# Connect4 Continuous Learning Configuration
+#
+# This configures the automated learning loop that:
+# 1. Generates new gameplay data
+# 2. Exports datasets
+# 3. Trains improved models
+# 4. Deploys better versions
+# 5. Repeats continuously
+
+game_generation:
+  # How many games to generate per iteration
+  games_per_iteration: 100
+  
+  # Path to orchestration system
+  orchestration_dir: ~/KDGY3/Integration5/orchestration
+  
+  # Script that generates self-play games
+  generation_script: scripts/generate_self_play_data.py
+
+dataset_export:
+  # Logger service API endpoint
+  logger_api_url: http://localhost:8010
+  export_endpoint: /dataset/export
+  
+  # Only export if we have this many new games
+  min_new_games: 50
+
+model_training:
+  # Model type: xgboost, lightgbm, or random_forest
+  model_type: xgboost
+  
+  # Train/val/test split ratios
+  test_size: 0.2
+  val_size: 0.1
+  
+  # Where to save models
+  models_dir: models
+  
+  # Minimum accuracy improvement to deploy (1% = 0.01)
+  min_accuracy_improvement: 0.01
+
+deployment:
+  # ML API endpoint
+  ml_api_url: http://localhost:8000
+  
+  # Auto-deploy improved models (false = manual approval)
+  auto_deploy: false
+  
+  # Backup previous model before deploying
+  backup_previous: true
+  
+  # Restart ML API after deployment
+  restart_api: false
+
+scheduling:
+  # Scheduling mode: 'interval' or 'cron'
+  mode: interval
+  
+  # Hours between iterations (for interval mode)
+  interval_hours: 24
+  
+  # Maximum iterations (null = infinite)
+  max_iterations: null
+
+monitoring:
+  # Directory for logs
+  log_dir: logs
+  
+  # Metrics history file
+  metrics_file: learning_history.json
