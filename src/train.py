@@ -5,7 +5,6 @@ Train XGBoost/LightGBM/RandomForest to predict MCTS moves from game state.
 Includes MLflow tracking for experiments.
 """
 
-import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
@@ -17,7 +16,7 @@ import json
 from datetime import datetime
 import sys
 sys.path.insert(0, str(Path(__file__).parent))
-from preprocessing import Connect4Preprocessor
+from src.preprocessing import Connect4Preprocessor
 
 # MLflow integration
 try:

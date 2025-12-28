@@ -1,9 +1,5 @@
 FROM python:3.11-slim
 
-LABEL maintainer="your-team@example.com"
-LABEL service="connect4-ml-trainer"
-LABEL version="1.0.0"
-
 WORKDIR /app
 
 # Install system dependencies
