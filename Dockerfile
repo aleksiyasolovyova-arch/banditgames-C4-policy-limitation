@@ -1,33 +1,26 @@
-FROM python:3.11-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
+# Install system dependencies (ADDED git here)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
     curl \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy training code
-COPY src/ ./src/
-COPY train_integrated.py .
+# Copy Source Code
+COPY src/ /app/src/
+
+# Copy the Orchestrator script to the root
 COPY continuous_learning.py .
-COPY learning_config.yaml .
 
-# Data directories (mounted as volumes)
-RUN mkdir -p /workspace/datasets \
-    /workspace/models \
-    /workspace/logs \
-    /workspace/tensorboard-logs \
-    /workspace/mlflow-artifacts
+# Create directory structures for Docker Volumes
+RUN mkdir -p /workspace/datasets /workspace/models /workspace/tensorboard-logs
 
-VOLUME /workspace/datasets
-VOLUME /workspace/models
-VOLUME /workspace/logs
-
-# Default command: continuous learning
-CMD ["python", "continuous_learning.py", "--config", "learning_config.yaml"]
+# Default command: Run the watcher
+CMD ["python", "continuous_learning.py"]

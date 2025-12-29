@@ -45,3 +45,19 @@ test_db.db
 
 # Others
 *.log
+
+# --- Project Specific (Vital) ---
+
+# Ignore large datasets, but keep the folder structure
+datasets/*
+!datasets/.gitkeep
+
+# Ignore trained model binaries
+models/*
+!models/.gitkeep
+
+# Ignore TensorBoard and App logs
+logs/*
+!logs/.gitkeep
+tensorboard-logs/
+mlflow-artifacts/
