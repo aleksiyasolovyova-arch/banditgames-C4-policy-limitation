@@ -46,18 +46,25 @@ test_db.db
 # Others
 *.log
 
-# --- Project Specific (Vital) ---
+# --- Project Specific ---
 
-# Ignore large datasets, but keep the folder structure
+# 1. Datasets: Ignore actual data, but KEEP DVC pointers
 datasets/*
 !datasets/.gitkeep
+!datasets/*.dvc
 
-# Ignore trained model binaries
-models/*
-!models/.gitkeep
+# 2. Models: Ignore binaries, but Keep Reports
+models/* # Ignore everything in models (including .joblib)
+!models/.gitkeep       # Keep the folder structure
+!models/reports/
 
-# Ignore TensorBoard and App logs
+# 3. Logs & Artifacts
 logs/*
 !logs/.gitkeep
-tensorboard-logs/
+tensorboard_logs/
 mlflow-artifacts/
+
+# 4. DVC Internals
+/dvc.lock
+.dvc/cache/
+.dvc/tmp/
