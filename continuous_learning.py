@@ -48,7 +48,10 @@ def main():
                 if acc is not None:
                     # 3. Signal API to Deploy
                     try:
-                        requests.post(API_URL, json={"version": version}, timeout=5)
+                        requests.post(
+                            API_URL,
+                            json={"version": version, "model_type": "policy"}
+                        )
                         logger.info(f" Deployment signal sent for {version}")
                     except Exception as e:
                         logger.error(f" API Deployment failed (Is the API running?): {e}")
